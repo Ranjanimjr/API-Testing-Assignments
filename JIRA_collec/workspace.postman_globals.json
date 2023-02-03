@@ -1,0 +1,15 @@
+{
+	"id": "0d859131-8250-4a0d-85d9-f9439c49e62e",
+	"values": [
+		{
+			"key": "issue_id",
+			"value": "{{issueId}}",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2023-02-03T17:49:33.975Z",
+	"_postman_exported_using": "Postman/10.9.1"
+}

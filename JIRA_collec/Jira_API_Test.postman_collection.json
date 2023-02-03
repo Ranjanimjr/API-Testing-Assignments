@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "6fe26f1f-d052-4bcf-8293-05a73ce1f08e",
+		"name": "Jira_API_Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24361207"
+	},
+	"item": [
+		{
+			"name": "Create issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var testResponse = pm.response.json();\r",
+							"var issueId= testResponse.id;\r",
+							"pm.globals.set(\"issue_id\", issueId);\r",
+							"pm.test(\"Expected Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "ATATT3xFfGF0hzo2T3et6TM45R63QdHMWUMuXRi6yIZJy_17iQ_qDQ1KAhFlxp_ztH-wQzuUI5lfruXWzo9ENige_P-dIUxT-b9ejdzjI3B6nB65b6m9Oy9gSxfKN9Rwgs_uG9GNmg3yEZVXbCxJdrvmu7FltQXt7HJRpQIo9lpbOKp2H88Ctck=E2172CBB",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "ranjani.mjr@gmail.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n        \"project\": {\r\n            \"key\": \"AP\"\r\n        },\r\n        \"summary\": \"create issue in RA project\",\r\n        \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\r\n        \"issuetype\": {\r\n            \"name\": \"Bug\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{QA_URL}}/rest/api/2/issue/",
+					"host": [
+						"{{QA_URL}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search_issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Expected Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{QA_URL}}/rest/api/2/issue/{{issue_id}}",
+					"host": [
+						"{{QA_URL}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{issue_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search_all_issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Expected Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{QA_URL}}t/rest/api/2/search?jql=project=\"APITEST\"",
+					"host": [
+						"{{QA_URL}}t"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"search"
+					],
+					"query": [
+						{
+							"key": "jql",
+							"value": "project=\"APITEST\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit_issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Expected Status code is 204 due to document updation requirement\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n        \"description\": \"Bug creation Using REST API for testing\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{QA_URL}}/rest/api/2/issue/{{issue_id}}",
+					"host": [
+						"{{QA_URL}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{issue_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_issue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Expected Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "ATATT3xFfGF0hzo2T3et6TM45R63QdHMWUMuXRi6yIZJy_17iQ_qDQ1KAhFlxp_ztH-wQzuUI5lfruXWzo9ENige_P-dIUxT-b9ejdzjI3B6nB65b6m9Oy9gSxfKN9Rwgs_uG9GNmg3yEZVXbCxJdrvmu7FltQXt7HJRpQIo9lpbOKp2H88Ctck=E2172CBB",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "ranjani.mjr@gmail.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n        \"project\": {\r\n            \"key\": \"AP\"\r\n        },\r\n        \"summary\": \"create issue in RA project\",\r\n        \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\r\n        \"issuetype\": {\r\n            \"name\": \"Bug\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{QA_URL}}/rest/api/2/issue/{{issue_id}}",
+					"host": [
+						"{{QA_URL}}"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{issue_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "ATATT3xFfGF0hzo2T3et6TM45R63QdHMWUMuXRi6yIZJy_17iQ_qDQ1KAhFlxp_ztH-wQzuUI5lfruXWzo9ENige_P-dIUxT-b9ejdzjI3B6nB65b6m9Oy9gSxfKN9Rwgs_uG9GNmg3yEZVXbCxJdrvmu7FltQXt7HJRpQIo9lpbOKp2H88Ctck=E2172CBB",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "ranjani.mjr@gmail.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
